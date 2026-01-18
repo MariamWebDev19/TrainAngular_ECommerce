@@ -53,12 +53,13 @@ export const routes: Routes = [
       { path: 'categories', component: CategoriesComponent, title: 'Categories page' },
       { path: 'wishlist', component: WishlistComponent, title: 'Wish List page' },
       // { path: 'details/:id', component: DetailsComponent, title: 'Details page' },
-{
+   {
   path: 'details/:slug/:id',
   component: DetailsComponent,
   title: 'Details page',
-  data: { renderMode: 'client' }  
+  data: { prerender: false }  
 },
+
 {
   path: 'details/:id',
   component: DetailsComponent,
