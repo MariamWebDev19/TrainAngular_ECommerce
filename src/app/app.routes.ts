@@ -47,25 +47,25 @@ export const routes: Routes = [
       { path: 'cart', component: CartComponent, title: 'Cart page' },
       { path: 'products', component: ProductsComponent, title: 'Products page' },
       // { path: 'details/:slug/:id', component: DetailsComponent, title: 'Details page' },
-      {
-  path: 'details/:slug/:id',
-  loadComponent: () =>
-    import('./feature/details/details.component')
-      .then(m => m.DetailsComponent),
-  title: 'Details page'
-},
+
 
       { path: 'brands', component: BrandComponent, title: 'Brands page' },
       { path: 'categories', component: CategoriesComponent, title: 'Categories page' },
       { path: 'wishlist', component: WishlistComponent, title: 'Wish List page' },
       // { path: 'details/:id', component: DetailsComponent, title: 'Details page' },
-     {
+{
+  path: 'details/:slug/:id',
+  component: DetailsComponent,
+  title: 'Details page',
+  data: { renderMode: 'client' }  
+},
+{
   path: 'details/:id',
-  loadComponent: () =>
-    import('./feature/details/details.component')
-      .then(m => m.DetailsComponent),
-  title: 'Details page'
+  component: DetailsComponent,
+  title: 'Details page',
+  data: { renderMode: 'client' }  
 }
+
 
 
     
