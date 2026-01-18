@@ -1,13 +1,5 @@
 {
-  "functions": {
-    "dist/ecommerce/server/main.server.mjs": {
-      "runtime": "nodejs20.x"
-    }
-  },
-  "routes": [
-    {
-      "src": "/.*",
-      "dest": "dist/ecommerce/browser/index.html"
-    }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
