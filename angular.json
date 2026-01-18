@@ -43,8 +43,12 @@
           },
           "configurations": {
             "production": {
-              "prerender": false,
-    "ssr": true,
+              "prerender": false, 
+    
+        "type": "initial",
+        "maximumWarning": "500kB",
+        "maximumError": "1MB",
+     
               "budgets": [
                 {
                   "type": "initial",

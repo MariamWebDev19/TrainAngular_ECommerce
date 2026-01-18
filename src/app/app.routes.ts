@@ -52,7 +52,7 @@ export const routes: Routes = [
       { path: 'brands', component: BrandComponent, title: 'Brands page' },
       { path: 'categories', component: CategoriesComponent, title: 'Categories page' },
       { path: 'wishlist', component: WishlistComponent, title: 'Wish List page' },
-      { path: 'details/:id', component: DetailsComponent, title: 'Details page' },
+      // { path: 'details/:id', component: DetailsComponent, title: 'Details page' },
 
 
 
