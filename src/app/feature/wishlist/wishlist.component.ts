@@ -1,8 +1,10 @@
 
 
+
+
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import Swal from 'sweetalert2'; // استيراد SweetAlert
+import Swal from 'sweetalert2'; 
 import { WishlistService } from './wishlist.service';
 import { CartService } from '../cart/services/cart.service';
 
@@ -17,37 +19,25 @@ export class WishlistComponent implements OnInit {
   private readonly _WishlistService = inject(WishlistService);
   private readonly _CartService = inject(CartService);
 
-  products: any[] = [];
+
+  products = this._WishlistService.wishlistSignal;
 
   ngOnInit(): void {
-    this.getWishlist();
+    this._WishlistService.getWishlist();
   }
 
-  getWishlist() {
-    this._WishlistService.getWishlist().subscribe({
-      next: (res) => {
-        this.products = res.data;
-      },
-      error: (err) => console.log(err)
-    });
-  }
-
- 
   removeFav(id: string) {
     this._WishlistService.removeFromWishlist(id).subscribe({
       next: (res) => {
        
-        this.getWishlist();
+        this._WishlistService.getWishlist();
         
-        
-        const Toast = Swal.mixin({
+        Swal.fire({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-        });
-        Toast.fire({
           icon: 'success',
           title: 'Removed from wishlist'
         });
@@ -55,7 +45,6 @@ export class WishlistComponent implements OnInit {
     });
   }
 
- 
   addCart(id: string) {
     this._CartService.addToCart(id).subscribe({ 
       next: (res) => {
@@ -69,3 +58,4 @@ export class WishlistComponent implements OnInit {
     });
   }
 }
+  

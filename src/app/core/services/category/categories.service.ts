@@ -1,14 +1,24 @@
+
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core'; 
 import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoriesService {
-    private readonly httpClient = inject(HttpClient)
-    getAllCat():Observable<any>{
-      return this.httpClient.get(  environment.baseUrl+ 'categories')
+    private readonly httpClient = inject(HttpClient);
+    
+   
+    categoriesSignal = signal<any[]>([]);
+
+    getAllCat(): void {
+      this.httpClient.get(environment.baseUrl + 'categories').subscribe({
+        next: (res: any) => {
+          
+          this.categoriesSignal.set(res.data);
+        },
+        error: (err) => console.log(err)
+      });
     }
 }

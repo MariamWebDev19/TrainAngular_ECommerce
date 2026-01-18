@@ -9,7 +9,6 @@ import { ProductsComponent } from './feature/products/products.component';
 import { BrandComponent } from './feature/brand/brand.component';
 import { CategoriesComponent } from './feature/categories/categories.component';
 import { DetailsComponent } from './feature/details/details.component';
-// import { CheckoutComponent } from './feature/cheakout/cheakout.component';
 import { NotfoundComponent } from './feature/notfound/notfound.component';
 
 import { noAuthGuard } from './core/gurades/no-auth-guard';

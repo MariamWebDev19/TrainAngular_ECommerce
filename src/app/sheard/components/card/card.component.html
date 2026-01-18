@@ -1,3 +1,4 @@
+
 <div class="mora py-4 px-4 shadow-sm rounded-xl hover:shadow-lg duration-300">
   <div class="cursor-pointer" [routerLink]="['/details', product.slug, product.id]">
     <img
@@ -12,16 +13,18 @@
       <div class="text-yellow-600 flex items-center gap-1">★ {{ product.ratingsAverage }}</div>
     </div>
   </div>
-  <button (click)="toggleWishlist(product._id)" class="items-cente cursor-pointer">
+
+  <button (click)="toggleWishlist(product._id)" class="items-center cursor-pointer p-2">
     <i
-      class="fa-solid fas fa-heart"
+      class="fa-solid fas fa-heart text-2xl"
       [ngClass]="{
-        'text-red-700': wishlistData.includes(product._id),
-        'text-gray-900': !wishlistData.includes(product._id),
+        'text-red-700': wishlistIds().includes(product._id),
+        'text-gray-900': !wishlistIds().includes(product._id)
       }"
     >
     </i>
   </button>
+
   <button
     (click)="addToCart(product._id)"
     class="bg-green-800 w-full mt-3 cursor-pointer text-white px-3 py-2 rounded-2xl hover:bg-green-900 duration-300"

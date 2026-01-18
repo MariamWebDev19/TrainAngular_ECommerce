@@ -1,36 +1,23 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit,  } from '@angular/core';
-import { CardComponent } from "../../sheard/components/card/card.component";
-import { Product } from '../../core/models/product.interface';
+import { Component, inject, OnInit } from '@angular/core';
 import { ProductsService } from '../../core/services/products/products.service';
+import { CommonModule } from '@angular/common';
+import { CardComponent } from '../../sheard/components/card/card.component';
 
 @Component({
   selector: 'app-products',
-  standalone:true,
+  standalone: true,
   imports: [CommonModule, CardComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
-export class ProductsComponent  implements OnInit{
-   private readonly productsService = inject(ProductsService)
-prdList:Product[]=[]
-ngOnInit(): void {
-  this.getAllPrdData();
-}
+export class ProductsComponent implements OnInit {
+  private readonly _productsService = inject(ProductsService);
 
-getAllPrdData():void{
-  this.productsService.getAllPrd().subscribe({
-    next:(res)=>{
-      console.log(res);
-      this.prdList = res.data
-    },
-    error:(err)=>{
-      console.log(err)
+  prdList = this._productsService.productsSignal;
+
+  ngOnInit(): void {
+    if (this.prdList().length === 0) {
+      this._productsService.getAllPrd();
     }
-    
-  })
+  }
 }
-}
-
-
-

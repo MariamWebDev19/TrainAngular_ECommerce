@@ -1,13 +1,18 @@
+
 <section class="my-24">
-  <section class="bg-gray-100 ">
- <h1 class="text-4xl text-gray-800 hover:text-gray-950 text-center px-3 py-7">Product List</h1>
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-7  ">
-   
-  <div *ngFor="let product of prdList">
-   <app-card [product]="product"/>
-  </div>
-</div>
+  <section class="bg-gray-100">
+    <h1 class="text-4xl text-gray-800 hover:text-gray-950 text-center px-3 py-7">Product List</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-7">
+      
+      @for (product of prdList(); track product._id) {
+        <div>
+          <app-card [product]="product"></app-card>
+        </div>
+      } @empty {
+        <p class="text-center col-span-full text-2xl">Loading Products...</p>
+      }
 
-</section>
-
+    </div>
+  </section>
 </section>
