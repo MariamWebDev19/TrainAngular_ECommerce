@@ -46,26 +46,19 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent, title: 'Home page' },
       { path: 'cart', component: CartComponent, title: 'Cart page' },
       { path: 'products', component: ProductsComponent, title: 'Products page' },
-      // { path: 'details/:slug/:id', component: DetailsComponent, title: 'Details page' },
+      { path: 'details/:slug/:id', component: DetailsComponent, title: 'Details page' },
 
 
       { path: 'brands', component: BrandComponent, title: 'Brands page' },
       { path: 'categories', component: CategoriesComponent, title: 'Categories page' },
       { path: 'wishlist', component: WishlistComponent, title: 'Wish List page' },
-      // { path: 'details/:id', component: DetailsComponent, title: 'Details page' },
-   {
-  path: 'details/:slug/:id',
-  component: DetailsComponent,
-  title: 'Details page',
-  data: { prerender: false }  
-},
+      { path: 'details/:id', component: DetailsComponent, title: 'Details page' },
 
-{
-  path: 'details/:id',
-  component: DetailsComponent,
-  title: 'Details page',
-  data: { renderMode: 'client' }  
-}
+
+
+
+
+
 
 
 
