@@ -1,0 +1,31 @@
+<div class="mora py-4 px-4 shadow-sm rounded-xl hover:shadow-lg duration-300">
+  <div class="cursor-pointer" [routerLink]="['/details', product.slug, product.id]">
+    <img
+      [src]="product.imageCover"
+      [alt]="product.title"
+      class="w-full h-62.5 object-cover mx-auto rounded-lg bg-gray-100"
+    />
+    <h3 class="text-green-800 text-xl my-2 px-2">{{ product.category.name }}</h3>
+    <p class="text-gray-700 px-2 text-xl">{{ product.title.split(' ', 3).join(' ') }}</p>
+    <div class="flex items-center justify-between mt-2">
+      <div class="px-2">{{ product.price }} EGP</div>
+      <div class="text-yellow-600 flex items-center gap-1">★ {{ product.ratingsAverage }}</div>
+    </div>
+  </div>
+  <button (click)="toggleWishlist(product._id)" class="items-cente cursor-pointer">
+    <i
+      class="fa-solid fas fa-heart"
+      [ngClass]="{
+        'text-red-700': wishlistData.includes(product._id),
+        'text-gray-900': !wishlistData.includes(product._id),
+      }"
+    >
+    </i>
+  </button>
+  <button
+    (click)="addToCart(product._id)"
+    class="bg-green-800 w-full mt-3 cursor-pointer text-white px-3 py-2 rounded-2xl hover:bg-green-900 duration-300"
+  >
+    Add To Cart
+  </button>
+</div>

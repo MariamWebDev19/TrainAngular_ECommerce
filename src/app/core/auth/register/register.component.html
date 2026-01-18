@@ -1,0 +1,164 @@
+<section class="my-24 container mx-auto px-8 rounded-2xl py-8 bg-gray-200">
+  <h1 class="text-4xl text-gray-800 hover:text-gray-950 text-center">Register Now</h1>
+
+  <form class="my-8" [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <div class="grid gap-6 mb-6 md:grid-cols-1">
+      <div>
+        <label for="name" class="block mb-2.5 text-sm font-medium text-heading">Name</label>
+        <input
+          formControlName="name"
+          type="text"
+          id="name"
+          class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-gray-500 focus:border-gray-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+          placeholder="mariam"
+        />
+
+        @if (registerForm.get('name')?.touched && registerForm.get('name')?.errors) {
+        <div
+          class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+          role="alert"
+        >
+          <ul class="mt-2 list-disc list-outside space-y-1 ps-2.5">
+            @if (registerForm.get('name')?.errors?.['required']) {
+            <li>Name is required</li>
+            } @if (registerForm.get('name')?.errors?.['minlength']) {
+            <li>Name must be at least 3 characters</li>
+            } @if (registerForm.get('name')?.errors?.['maxlength']) {
+            <li>Name must be at most 20 characters</li>
+            }
+          </ul>
+        </div>
+        }
+      </div>
+
+      <div>
+        <label for="phone" class="block mb-2.5 text-sm font-medium text-heading"
+          >Phone number</label
+        >
+        <input
+          formControlName="phone"
+          type="tel"
+          id="phone"
+          class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-gray-500 focus:border-gray-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+          placeholder="123-45-678"
+        />
+        @if (registerForm.get('phone')?.touched && registerForm.get('phone')?.errors) {
+        <div
+          class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+          role="alert"
+        >
+          <ul class="mt-2 list-disc list-outside space-y-1 ps-2.5">
+            @if (registerForm.get('phone')?.errors?.['required']) {
+            <li>Phone number is required</li>
+            } @if (registerForm.get('phone')?.errors?.['pattern']) {
+            <li>Phone number must contain numbers only</li>
+            } @if (registerForm.get('phone')?.errors?.['minlength']) {
+            <li>Phone number must be at least 10 digits</li>
+            } @if (registerForm.get('phone')?.errors?.['maxlength']) {
+            <li>Phone number must be at most 15 digits</li>
+            }
+          </ul>
+        </div>
+        }
+      </div>
+    </div>
+    <div class="mb-6">
+      <label for="email" class="block mb-2.5 text-sm font-medium text-heading">Email address</label>
+      <input
+        formControlName="email"
+        type="email"
+        id="email"
+        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-gray-500 focus:border-gray-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+        placeholder="mariam.dev@company.com"
+        required
+      />
+      @if (registerForm.get('email')?.touched && registerForm.get('email')?.errors) {
+      <div
+        class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+        role="alert"
+      >
+        <ul class="mt-2 list-disc list-outside space-y-1 ps-2.5">
+          @if (registerForm.get('email')?.errors?.['required']) {
+          <li>Email is required</li>
+          } @if (registerForm.get('email')?.errors?.['email']) {
+          <li>Enter a valid email address</li>
+          }
+        </ul>
+      </div>
+      }
+    </div>
+    <div class="mb-6">
+      <label for="password" class="block mb-2.5 text-sm font-medium text-heading">Password</label>
+
+      <input
+        formControlName="password"
+        type="password"
+        id="password"
+        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-gray-500 focus:border-gray-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+        placeholder="•••••••••"
+        required
+      />
+
+      @if (registerForm.get('password')?.touched && registerForm.get('password')?.errors) {
+      <div
+        class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+        role="alert"
+      >
+        <ul class="mt-2 list-disc list-outside space-y-1 ps-2.5">
+          @if (registerForm.get('password')?.errors?.['required']) {
+          <li>Password is required</li>
+          } @if (registerForm.get('password')?.errors?.['pattern']) {
+          <li>Password must be at least 6 characters</li>
+          }
+        </ul>
+      </div>
+      }
+    </div>
+    <div class="mb-6">
+      <label for="rPassword" class="block mb-2.5 text-sm font-medium text-heading"
+        >Confirm password</label
+      >
+      <input
+        formControlName="rePassword"
+        type="password"
+        id="rPassword"
+        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-gray-500 focus:border-gray-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+        placeholder="•••••••••"
+        required
+      />
+      @if ( registerForm.get('rePassword')?.touched && (registerForm.get('rePassword')?.errors ||
+      registerForm.errors?.['passwordMismatch']) ) {
+      <div
+        class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+        role="alert"
+      >
+        <ul class="mt-2 list-disc list-outside space-y-1 ps-2.5">
+          @if (registerForm.get('rePassword')?.errors?.['required']) {
+          <li>Confirm password is required</li>
+          } @if (registerForm.errors?.['passwordMismatch']) {
+          <li>Passwords do be match</li>
+          }
+        </ul>
+      </div>
+      }
+    </div>
+
+    <button
+      type="submit"
+      class="text-white bg-gray-800 box-border border border-transparent hover:bg-gray-950 focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+    >
+      Register @if (isLoading) {
+      <span> <i class="fas fa-spinner animate-spin"></i> </span>
+
+      }
+    </button>
+    @if (msgErr) {
+    <div
+      class="p-4 my-3 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft"
+      role="alert"
+    >
+      <span class="">{{ msgErr }}</span>
+    </div>
+    }
+  </form>
+</section>

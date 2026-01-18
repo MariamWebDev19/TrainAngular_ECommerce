@@ -1,0 +1,161 @@
+<section class="bg-gray-200 my-20 min-h-screen">
+  <h1 class="text-4xl text-gray-800 text-center px-3 py-7">Your Cart</h1>
+
+  <div class="container grid sm:grid-cols-12 gap-10 mx-auto py-7 items-start px-4">
+    <div class="col-span-12 md:col-span-8 my-2 rounded-2xl shadow-2xl  bg-white shadow-gray-950 p-6">
+      <div *ngIf="isLoading" class="text-center py-5 text-4xl">Loading...</div>
+
+      <ng-container *ngIf="!isLoading">
+        <div class="flex items-center justify-between p-4 border-b mb-4">
+          <h1 class="text-3xl text-gray-800 ">Cart</h1>
+          <span class="text-orange-700 text-3xl " *ngIf="cartDetails">
+            {{ cartDetails.products.length }} Items
+          </span>
+        </div>
+
+        <ng-container *ngIf="cartDetails && cartDetails.products.length > 0; else emptyCart">
+          <div
+            *ngFor="let item of cartDetails.products"
+            class="bg-gray-50 p-4 border-gray-700  my-4 grid grid-cols-12 gap-4 border rounded-4xl shadow-sm"
+          >
+            <div class="col-span-12 sm:col-span-2 ">
+              
+              <img
+                [src]="item.product.imageCover"
+                [alt]="item.product.title"
+                class="w-full h-auto rounded-md object-cover"
+              />
+             
+            </div>
+            <div class="col-span-12 sm:col-span-10 flex flex-col justify-between">
+              <div class="flex justify-between items-start">
+                <h3 class="text-xl font-semibold">
+                  {{ item.product.title.split(' ').slice(0, 2).join(' ') }}
+                </h3>
+                <span class="text-xl font-bold text-gray-700">{{
+                  item.price * item.count | currency: 'EGP '
+                }}</span>
+              </div>
+
+              <div class="flex items-center justify-between mt-4">
+                <div class="bg-white border border-gray-300 rounded-lg flex items-center px-2">
+                  <button
+                    (click)="updateCount(item.product._id, item.count - 1)"
+                    class="px-2 py-1 text-xl hover:text-green-600 transition"
+                  >
+                    
+                    <i class="fa fa-minus cursor-pointer"></i>
+                  </button>
+                  <span class="mx-3 font-medium">{{ item.count }}</span>
+                  <button
+                    (click)="updateCount(item.product._id, item.count + 1)"
+                    class="px-2 py-1 text-xl hover:text-green-600 transition"
+                  >
+                    
+                    <i class="fa fa-plus cursor-pointer"></i>
+                  </button>
+                </div>
+                <button
+                  (click)="removeItem(item.product._id)"
+                  class="text-red-500 hover:text-red-700 transition flex items-center gap-1"
+                >
+                  <span class="text-sm font-medium">Remove</span> 
+                   <i class="fa-solid fa-trash cursor-pointer"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-4 mt-6">
+            <button
+              (click)="clearCart()"
+              class="px-6 py-2 rounded-lg cursor-pointer bg-red-500 hover:bg-red-600 text-white transition font-medium"
+            >
+              Clear Cart
+            </button>
+            <button
+              *ngIf="!showForm"
+              (click)="openShippingForm()"
+              class="px-6 py-2 rounded-lg bg-green-500 cursor-pointer hover:bg-green-600 text-white transition font-medium ml-auto"
+            >
+              Continue to Shipping
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-template #emptyCart>
+          <div class="text-center py-10">
+            <h1 class="text-3xl text-gray-600 mb-4">Your Cart Is Empty</h1>
+            <p class="text-gray-500 text-2xl">Add some products to Cart.</p>
+            <img src="/images/emty.jpg" class="w-full" alt="" />
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+
+    <div
+      class="col-span-12 md:col-span-4 bg-white my-2 rounded-2xl shadow-2xl shadow-gray-950 p-6 h-fit sticky top-10"
+    >
+      <h2 class="text-3xl text-gray-800 text-center mb-6 font-bold border-b pb-4">Order Summary</h2>
+
+      <div class="flex items-center justify-between my-4 text-lg">
+        <h3 class="text-gray-700 text-2xl">Total Price</h3>
+        <h4 class="font-bold text-green-600" *ngIf="cartDetails">
+          {{ cartDetails.totalCartPrice | currency: 'EGP ' }}
+        </h4>
+        <h4 class="font-bold text-green-600" *ngIf="!cartDetails">0 EGP</h4>
+      </div>
+
+      <div
+        *ngIf="showForm"
+        [formGroup]="shippingForm"
+        class="bg-gray-50 rounded-lg p-4 mt-6 border border-gray-200 animate-pulse-slow"
+      >
+        <h2 class="mb-4 text-xl font-semibold text-gray-700">Shipping Details</h2>
+
+        <div class="flex flex-col gap-3">
+          <input
+            formControlName="city"
+            type="text"
+            placeholder="City"
+            class="rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 w-full p-2.5 outline-none border transition"
+          />
+          <input
+            formControlName="phone"
+            type="tel"
+            placeholder="Phone"
+            class="rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 w-full p-2.5 outline-none border transition"
+          />
+          <input
+            formControlName="details"
+            type="text"
+            placeholder="Address Details"
+            class="rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 w-full p-2.5 outline-none border transition"
+          />
+
+          <button
+            (click)="checkout()"
+            [disabled]="shippingForm.invalid"
+            class="w-full p-3 rounded-lg cursor-pointer bg-green-500 hover:bg-green-600 text-white font-medium transition disabled:bg-gray-400 mt-2"
+          >
+            Pay Now
+          </button>
+
+          <button
+            (click)="closeShippingForm()"
+            class="w-full p-3 rounded-lg border cursor-pointer border-gray-300 hover:bg-gray-100 text-gray-700 transition"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <div
+        *ngIf="!showForm && cartDetails && cartDetails.products.length > 0"
+        class="mt-6 text-center text-sm text-gray-600"
+      >
+        <p class="text-2xl">Click "Continue to Shipping" to proceed.</p>
+      </div>
+    </div>
+  </div>
+</section>

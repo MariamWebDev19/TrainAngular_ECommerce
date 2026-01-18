@@ -1,0 +1,87 @@
+
+<section class="my-24 container mx-auto px-8 rounded-2xl py-8 bg-gray-200">
+  <h1 class="text-4xl text-gray-800 hover:text-gray-950 text-center">
+    Login Now
+  </h1>
+
+  <form class="my-8" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+
+    <!-- Email -->
+    <div class="mb-6">
+      <label for="email" class="block mb-2.5 text-sm font-medium text-heading">
+        Email address
+      </label>
+
+      <input
+        formControlName="email"
+        type="email"
+        id="email"
+        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-gray-500 focus:border-gray-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+        placeholder="mariam.dev@company.com"
+      />
+
+      @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors) {
+      <div
+        class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+        role="alert"
+      >
+        <ul class="mt-2 list-disc list-outside space-y-1 ps-2.5">
+          @if (loginForm.get('email')?.errors?.['required']) {
+          <li>Email is required</li>
+          }
+          @if (loginForm.get('email')?.errors?.['email']) {
+          <li>Enter a valid email address</li>
+          }
+        </ul>
+      </div>
+      }
+    </div>
+
+    <!-- Password -->
+    <div class="mb-6">
+      <label for="password" class="block mb-2.5 text-sm font-medium text-heading">
+        Password
+      </label>
+
+      <input
+        formControlName="password"
+        type="password"
+        id="password"
+        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-gray-500 focus:border-gray-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+        placeholder="•••••••••"
+      />
+
+      @if (loginForm.get('password')?.touched && loginForm.get('password')?.errors) {
+      <div
+        class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+        role="alert"
+      >
+        <ul class="mt-2 list-disc list-outside space-y-1 ps-2.5">
+          @if (loginForm.get('password')?.errors?.['required']) {
+          <li>Password is required</li>
+          }
+          @if (loginForm.get('password')?.errors?.['minlength']) {
+          <li>Password must be at least 6 characters</li>
+          }
+        </ul>
+      </div>
+      }
+    </div>
+
+    <button
+    
+      type="submit"
+      class="text-white bg-gray-800 box-border border border-transparent hover:bg-gray-950 focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+    >
+      LogIn
+      @if (isLoading) {
+              <span> <i class="fas fa-spinner animate-spin"></i> </span>
+
+      }
+    </button>
+
+  </form>
+</section>
+
+
+

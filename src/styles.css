@@ -1,3 +1,77 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+/* //////////////////btn main///////////////////// */
+body{
+     font-family: "Edu NSW ACT Cursive", cursive;
+}
+:root{
+    --main-color: #18161605;
+}
+.btn-mian{
+    background-color: var(--main-color);
+    padding: 7px 20px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+transition: background-color 0.5s ;
+
+}
+.btn-mian:disabled{
+    cursor: not-allowed;
+    background-color: #ccc;
+
+}
+.btn-mian:disabled:hover{
+    background-color: #ccc;
+}
+.btn-mian:hover{
+    background-color: black;
+}
+
+
+/* //////////////cart//////////////////// */
+
+
+
+.mora {
+  overflow: hidden;
+  border-radius: 16px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+
+.mora:hover {
+  transform: scale(1.03);
+  /* box-shadow: 0 10px 25px rgba(7, 226, 7, 0.2);  */
+  /* border: 2px solid rgb(23, 241, 23); */
+}
+
+
+.mora img {
+  transition: transform 0.4s ease;
+}
+
+.mora:hover img {
+  transform: scale(1.08);
+}
+
+
+.mora .btn {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.mora:hover .btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+
+

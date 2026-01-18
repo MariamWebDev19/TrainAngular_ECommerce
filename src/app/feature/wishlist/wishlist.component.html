@@ -1,0 +1,43 @@
+<section class="py-10 my-20 bg-gray-50 min-h-screen">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">My Wishlist </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      @for (product of products; track product._id) {
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img
+            [src]="product.imageCover"
+            [alt]="product.title"
+            class="w-full h-64 object-cover rounded mb-4"
+          />
+
+          <h3 class="text-lg font-semibold text-green-700 line-clamp-1">{{ product.title }}</h3>
+          <div class="flex justify-between items-center my-2">
+            <span class="font-bold">{{ product.price }} EGP</span>
+            <div class="flex items-center">
+              <i class="fas fa-star text-yellow-400"></i>
+              <span class="text-gray-600 ml-1">{{ product.ratingsAverage }}</span>
+            </div>
+          </div>
+
+          <button
+            (click)="addCart(product._id)"
+            class="w-full bg-green-600 cursor-pointer text-white py-2 text-xl mb-2 hover:bg-green-800 rounded-2xl transition"
+          >
+            Add to Cart
+          </button>
+
+          <button
+            (click)="removeFav(product._id)"
+            class="w-full border border-red-500 text-xl py-2 rounded-2xl cursor-pointer text-white hover:bg-red-700 bg-red-500 hover:text-white transition"
+          >
+            Remove <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      } @empty {
+        <h3 class="text-3xl text-center col-span-full">Your wishlist is empty </h3>
+          <p class="text-gray-500 text-center text-2xl">Add some products to Wish List.</p>
+      }
+    </div>
+  </div>
+</section>
