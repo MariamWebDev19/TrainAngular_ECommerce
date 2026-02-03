@@ -1,30 +1,46 @@
-<div class="my-24 container mx-auto px-5 bg-gray-100">
-  <h1 class="text-4xl text-gray-800 hover:text-gray-950 text-center px-3 py-7">Details Product</h1>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-14 bg-gray-10 mora p-10 rounded-3xl shadow-lg">
-    <div class="flex justify-center">
-      <img
-        [src]="prdDetails.imageCover"
-        [alt]="prdDetails.title"
-        class="w-[380px] h-[420px] object-cover rounded-2xl"
-      />
-    </div>
+<section class="my-24 container mx-auto px-5">
+  <h1 class="text-4xl text-gray-800 text-center font-bold mb-10">Product Details</h1>
 
-    <div>
-      <h1 class="text-4xl font-bold">{{ prdDetails.title }}</h1>
-      <p class="mt-3 text-2xl text-gray-600">
-        {{ prdDetails.description }}
-      </p>
-
-      <div class="flex justify-between mt-5">
-        <span class="text-2xl ">{{ prdDetails.price }} EGP</span>
-
-        <span class="flex items-center gap-1 text-yellow-600">
-          ★ {{ prdDetails.ratingsAverage }}
-        </span>
+  @if (prdDetails()) {
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white p-10 rounded-3xl shadow-lg items-center border border-gray-100">
+      
+      <div class="flex justify-center bg-gray-50 rounded-2xl p-4">
+        <img
+          [src]="prdDetails()?.imageCover"
+          [alt]="prdDetails()?.title"
+          class="w-[380px] h-[420px] object-contain rounded-2xl shadow-md"
+        />
       </div>
 
-      <button class="bg-green-700 text-white w-full py-4 rounded-xl mt-6">Add To Cart</button>
+      <div class="flex flex-col justify-center">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+          {{ prdDetails()?.title }}
+        </h2>
+        
+        <p class="mt-4 text-xl text-gray-600 leading-relaxed bg-green-50 p-4 border-r-4 border-green-600 rounded-lg">
+          {{ prdDetails()?.description }}
+        </p>
+
+        <div class="flex justify-between items-center mt-8 py-6 border-y border-gray-100">
+          <span class="text-3xl font-black text-green-700">{{ prdDetails()?.price }} EGP</span>
+          <span class="flex items-center gap-1 text-yellow-500 text-2xl font-bold">
+            ★ {{ prdDetails()?.ratingsAverage }}
+          </span>
+        </div>
+
+        <button 
+          (click)="addToCart(prdDetails()?._id!)"
+          class="bg-green-700 hover:bg-green-800 transition-all duration-300 text-white w-full py-5 rounded-2xl mt-8 text-2xl font-bold cursor-pointer shadow-xl active:scale-95"
+        >
+          Add To Cart
+        </button>
+      </div>
     </div>
-  </div>
-</div>
+  } @else {
+    <div class="flex flex-col items-center justify-center py-32 space-y-4">
+      <div class="w-16 h-16 border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+      <p class="text-2xl text-gray-500 font-medium animate-pulse">Loading Product Data...</p>
+    </div>
+  }
+</section>
